@@ -1,4 +1,4 @@
-export { generateCode } from './generate.js';
+export { generateCode, generateForModel } from './generate.js';
 export { buildBody } from './wire/body.js';
 export { buildRequest } from './wire/request.js';
 export { buildEndpoint } from './wire/endpoint.js';
