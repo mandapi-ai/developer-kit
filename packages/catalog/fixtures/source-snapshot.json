@@ -1,0 +1,285 @@
+{
+  "observedOn": "2026-10-01",
+  "note": "Public metadata snapshot only. Not a live request test, a production availability guarantee, or an authoritative preferred-protocol declaration.",
+  "prices": {
+    "url": "https://mandapi.com/api/prices",
+    "version": "prod-2026-09-12.1",
+    "source": "production-newapi",
+    "generatedAt": "2026-10-01T05:07:35.316Z",
+    "currency": "BRL",
+    "unit": "per_million_tokens",
+    "models": [
+      {
+        "id": "gpt-6-sol",
+        "displayName": "gpt-6-sol",
+        "provider": "Outros",
+        "family": "outros",
+        "contextWindow": null,
+        "status": "operational",
+        "tags": [],
+        "inputPriceBrl": 0.4,
+        "outputPriceBrl": 2,
+        "cachePriceBrl": null,
+        "available": true,
+        "priced": true
+      },
+      {
+        "id": "gpt-5.6-sol",
+        "displayName": "GPT-5.6 Sol",
+        "provider": "OpenAI",
+        "family": "gpt-general",
+        "contextWindow": 400000,
+        "status": "operational",
+        "tags": [
+          "Reasoning",
+          "Tools"
+        ],
+        "inputPriceBrl": 1,
+        "outputPriceBrl": 6,
+        "cachePriceBrl": null,
+        "available": true,
+        "priced": true
+      },
+      {
+        "id": "claude-opus-5",
+        "displayName": "Claude Opus 5",
+        "provider": "Anthropic",
+        "family": "claude-opus",
+        "contextWindow": 400000,
+        "status": "operational",
+        "tags": [
+          "Reasoning",
+          "Tools",
+          "Agents"
+        ],
+        "inputPriceBrl": 2,
+        "outputPriceBrl": 10,
+        "cachePriceBrl": null,
+        "available": true,
+        "priced": true
+      },
+      {
+        "id": "claude-sonnet-5",
+        "displayName": "Claude Sonnet 5",
+        "provider": "Anthropic",
+        "family": "claude-sonnet",
+        "contextWindow": 1000000,
+        "status": "operational",
+        "tags": [
+          "Reasoning",
+          "Tools",
+          "1M+"
+        ],
+        "inputPriceBrl": 1.2,
+        "outputPriceBrl": 6,
+        "cachePriceBrl": null,
+        "available": true,
+        "priced": true
+      },
+      {
+        "id": "gemini-3.1-pro-preview",
+        "displayName": "Gemini 3.1 Pro (Preview)",
+        "provider": "Google",
+        "family": "gemini-pro",
+        "contextWindow": 1000000,
+        "status": "operational",
+        "tags": [
+          "Reasoning",
+          "1M+"
+        ],
+        "inputPriceBrl": 5.5,
+        "outputPriceBrl": 32,
+        "cachePriceBrl": 1.1,
+        "available": true,
+        "priced": true
+      },
+      {
+        "id": "deepseek-v4.1-flash",
+        "displayName": "deepseek-v4.1-flash",
+        "provider": "Outros",
+        "family": "outros",
+        "contextWindow": null,
+        "status": "operational",
+        "tags": [],
+        "inputPriceBrl": 0.39,
+        "outputPriceBrl": 0.99,
+        "cachePriceBrl": null,
+        "available": true,
+        "priced": true
+      },
+      {
+        "id": "glm-5.3",
+        "displayName": "glm-5.3",
+        "provider": "Outros",
+        "family": "outros",
+        "contextWindow": null,
+        "status": "operational",
+        "tags": [],
+        "inputPriceBrl": 4.49,
+        "outputPriceBrl": 13.9,
+        "cachePriceBrl": null,
+        "available": true,
+        "priced": true
+      },
+      {
+        "id": "kimi-k3",
+        "displayName": "kimi-k3",
+        "provider": "Outros",
+        "family": "outros",
+        "contextWindow": null,
+        "status": "operational",
+        "tags": [],
+        "inputPriceBrl": 8.49,
+        "outputPriceBrl": 42.9,
+        "cachePriceBrl": null,
+        "available": true,
+        "priced": true
+      },
+      {
+        "id": "mimo-v2.6-flash",
+        "displayName": "mimo-v2.6-flash",
+        "provider": "Outros",
+        "family": "outros",
+        "contextWindow": null,
+        "status": "operational",
+        "tags": [],
+        "inputPriceBrl": 0.39,
+        "outputPriceBrl": 0.79,
+        "cachePriceBrl": null,
+        "available": true,
+        "priced": true
+      }
+    ]
+  },
+  "protocols": {
+    "url": "https://api.mandapi.com/api/pricing",
+    "pricingVersion": "a42d372ccf0b5dd13ecf71203521f9d2",
+    "supportedEndpoint": {
+      "anthropic": {
+        "path": "/v1/messages",
+        "method": "POST"
+      },
+      "gemini": {
+        "path": "/v1beta/models/{model}:generateContent",
+        "method": "POST"
+      },
+      "openai": {
+        "path": "/v1/chat/completions",
+        "method": "POST"
+      }
+    },
+    "vendors": [
+      {
+        "id": 6,
+        "name": "阿里巴巴",
+        "icon": "Qwen.Color"
+      },
+      {
+        "id": 7,
+        "name": "智谱",
+        "icon": "Zhipu.Color"
+      },
+      {
+        "id": 8,
+        "name": "Moonshot",
+        "icon": "Moonshot"
+      },
+      {
+        "id": 1,
+        "name": "DeepSeek",
+        "icon": "DeepSeek.Color"
+      },
+      {
+        "id": 2,
+        "name": "Anthropic",
+        "icon": "Claude.Color"
+      },
+      {
+        "id": 3,
+        "name": "xAI",
+        "icon": "XAI"
+      },
+      {
+        "id": 4,
+        "name": "OpenAI",
+        "icon": "OpenAI"
+      },
+      {
+        "id": 5,
+        "name": "Google",
+        "icon": "Gemini.Color"
+      }
+    ],
+    "models": [
+      {
+        "model_name": "gpt-6-sol",
+        "vendor_id": 4,
+        "supported_endpoint_types": [
+          "openai"
+        ]
+      },
+      {
+        "model_name": "gpt-5.6-sol",
+        "vendor_id": 4,
+        "tags": "Reasoning,Tools,Files,Vision,1.1M",
+        "supported_endpoint_types": [
+          "openai"
+        ]
+      },
+      {
+        "model_name": "claude-opus-5",
+        "vendor_id": 2,
+        "tags": "Reasoning,Tools,Files,Vision,1M",
+        "supported_endpoint_types": [
+          "anthropic",
+          "openai"
+        ]
+      },
+      {
+        "model_name": "claude-sonnet-5",
+        "vendor_id": 2,
+        "tags": "Reasoning,Tools,Files,Vision,1M",
+        "supported_endpoint_types": [
+          "anthropic",
+          "openai"
+        ]
+      },
+      {
+        "model_name": "gemini-3.1-pro-preview",
+        "vendor_id": 5,
+        "tags": "Reasoning,Tools,Files,Vision,Audio,1M",
+        "supported_endpoint_types": [
+          "gemini",
+          "openai"
+        ]
+      },
+      {
+        "model_name": "deepseek-v4.1-flash",
+        "vendor_id": 1,
+        "supported_endpoint_types": [
+          "openai"
+        ]
+      },
+      {
+        "model_name": "glm-5.3",
+        "vendor_id": 7,
+        "supported_endpoint_types": [
+          "openai"
+        ]
+      },
+      {
+        "model_name": "kimi-k3",
+        "vendor_id": 8,
+        "supported_endpoint_types": [
+          "openai"
+        ]
+      },
+      {
+        "model_name": "mimo-v2.6-flash",
+        "supported_endpoint_types": [
+          "openai"
+        ]
+      }
+    ]
+  }
+}
