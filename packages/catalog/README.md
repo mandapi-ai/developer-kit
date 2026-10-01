@@ -53,7 +53,7 @@ Nine representative models were captured from public MandAPI metadata on **2026-
 
 Mapping is explicit: `openai` maps to `chat`, `anthropic` to `messages`, and `gemini` to `gemini`. Reasoning, Tools, Vision, and Audio tags map to the matching boolean capability fields. Other capabilities, missing context values, maximum output, and runtime measurements are omitted. NewAPI pricing ratios are not converted into prices; this catalog uses the already normalized public BRL values.
 
-Native Messages and Gemini are the maintained preferred choices when the source declares those protocols. This preference is a library policy. The source does not publish a preferred flag or live test results, and no fixture sets `tested: true`. Source generation time is metadata provenance, not a measured runtime observation. `runtime.status` records the published status only.
+Native Messages and Gemini are the maintained preferred choices when the source declares those protocols. This preference is a library policy. The public source does not publish a preferred flag or live test results. Independently, only `gpt-6-sol` / `chat` is marked `tested: true`, following a successful generated Python request on 2026-10-01; see the [Acceptance A record](../../docs/p2-validation.md#acceptance-status). Other fixture protocols remain untested. Source generation time is metadata provenance, not a measured runtime observation. `runtime.status` records the published status only.
 
 The snapshot declares only `chat` for `gpt-6-sol`; its other capabilities are unknown. It does not add Responses support based on the model name. The Gemini Native representative is `gemini-3.1-pro-preview`, whose source declares both Gemini and Chat. `gemini-3.8-flash` is not substituted based on naming.
 
