@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mandapi-price-intelligence"
+version = "0.1.0"
+description = "Public LLM/API price crawling, normalization, provenance and snapshot diffing for MandAPI Research"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  "httpx>=0.27,<1",
+  "beautifulsoup4>=4.12,<5",
+  "PyYAML>=6.0,<7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0,<9"]
+
+[project.scripts]
+mandapi-price-intel = "mandapi_price_intelligence.cli:main"
+
+[tool.setuptools.package-data]
+mandapi_price_intelligence = ["sources.yaml"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

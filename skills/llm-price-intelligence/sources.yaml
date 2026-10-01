@@ -1,0 +1,256 @@
+version: 1
+user_agent: "MandAPI-Price-Intelligence/0.1 (+https://github.com/mandapi-ai/developer-kit)"
+default_timeout_seconds: 20
+sources:
+  - id: mandapi
+    platform: MandAPI
+    enabled: true
+    adapter: generic_html
+    pricing_url: https://mandapi.com/pricing
+    platform_type: gateway
+    source_type: first_party
+    default_currency: BRL
+    market_scope: Brazil
+    brazil_relevance: direct_brl
+    openai_compatible: true
+    unit: per_1m_tokens
+
+  - id: roteia
+    platform: Roteia
+    enabled: true
+    adapter: roteia
+    pricing_url: https://roteia.ai/modelos/
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: BRL
+    market_scope: Brazil
+    brazil_relevance: direct_brl
+    openai_compatible: true
+    unit: per_1m_tokens
+
+  - id: tokenrecarga
+    platform: TokenRecarga
+    enabled: true
+    adapter: tokenrecarga
+    pricing_url: https://www.tokenrecarga.com.br/precos
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: BRL
+    market_scope: Brazil
+    brazil_relevance: direct_brl
+    openai_compatible: true
+    unit: per_1m_tokens
+
+  - id: openrouter
+    platform: OpenRouter
+    enabled: true
+    adapter: openrouter
+    pricing_url: https://openrouter.ai/api/v1/models
+    platform_type: aggregator
+    source_type: aggregator
+    default_currency: USD
+    market_scope: Global
+    brazil_relevance: global_reference
+    openai_compatible: true
+    unit: per_token
+
+  - id: openai
+    platform: OpenAI
+    enabled: true
+    adapter: generic_html
+    pricing_url: https://developers.openai.com/api/docs/pricing
+    platform_type: official
+    source_type: official
+    default_currency: USD
+    market_scope: Global
+    brazil_relevance: global_reference
+    openai_compatible: true
+    unit: per_1m_tokens
+
+  - id: anthropic
+    platform: Anthropic
+    enabled: true
+    adapter: generic_html
+    pricing_url: https://platform.claude.com/docs/en/about-claude/pricing
+    platform_type: official
+    source_type: official
+    default_currency: USD
+    market_scope: Global
+    brazil_relevance: global_reference
+    openai_compatible: false
+    unit: per_1m_tokens
+
+  - id: google-ai-studio
+    platform: Google AI Studio
+    enabled: true
+    adapter: generic_html
+    pricing_url: https://ai.google.dev/gemini-api/docs/pricing
+    platform_type: official
+    source_type: official
+    default_currency: USD
+    market_scope: Global
+    brazil_relevance: global_reference
+    openai_compatible: false
+    unit: per_1m_tokens
+
+  - id: deepseek
+    platform: DeepSeek
+    enabled: true
+    adapter: generic_html
+    pricing_url: https://api-docs.deepseek.com/quick_start/pricing/
+    platform_type: official
+    source_type: official
+    default_currency: USD
+    market_scope: Global
+    brazil_relevance: global_reference
+    openai_compatible: true
+    unit: per_1m_tokens
+
+  - id: kunavo
+    platform: Kunavo
+    enabled: true
+    adapter: kunavo
+    pricing_url: https://kunavo.com/pricing
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: USD
+    market_scope: Global
+    brazil_relevance: portuguese_market
+    openai_compatible: true
+    unit: per_1m_tokens
+
+  - id: apimart
+    platform: APIMart
+    enabled: true
+    adapter: apimart
+    pricing_url: https://apimart.ai/api/pricing/models/all
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: USD
+    market_scope: Global
+    brazil_relevance: portuguese_market
+    openai_compatible: true
+    unit: per_1m_tokens
+
+  - id: runapi
+    platform: RunAPI
+    enabled: true
+    adapter: runapi
+    pricing_url: https://runapi.ai/pricing
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: USD
+    market_scope: Global
+    brazil_relevance: portuguese_market
+    openai_compatible: true
+    unit: per_1m_tokens
+
+  - id: unorouter
+    platform: UnoRouter
+    enabled: true
+    adapter: generic_html
+    pricing_url: https://unorouter.com/en/models
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: USD
+    market_scope: Global
+    brazil_relevance: portuguese_market
+    openai_compatible: true
+    unit: per_1m_tokens
+
+  - id: ominigate
+    platform: OminiGate
+    enabled: true
+    adapter: ominigate
+    pricing_url: https://ominigate.ai/api/proxy/api/v1/models?locale=pt-BR
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: USD
+    market_scope: Global
+    brazil_relevance: portuguese_market
+    openai_compatible: true
+    unit: per_1m_tokens
+
+  - id: tokia
+    platform: Tokia
+    enabled: true
+    adapter: profile_only
+    pricing_url: https://www.usetokia.com/api
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: BRL
+    market_scope: Brazil
+    brazil_relevance: direct_brl
+    openai_compatible: true
+
+  - id: navi-router
+    platform: NAVI Router
+    enabled: true
+    adapter: profile_only
+    pricing_url: https://navirouter.ia.br/
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: BRL
+    market_scope: Brazil
+    brazil_relevance: direct_brl
+    openai_compatible: true
+
+  - id: certisecure
+    platform: CertiSecure
+    enabled: true
+    adapter: profile_only
+    pricing_url: https://docs.certisecure.com.br/
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: BRL
+    market_scope: Brazil
+    brazil_relevance: direct_brl
+    openai_compatible: true
+
+  - id: pixia-cloud
+    platform: PixIA Cloud
+    enabled: true
+    adapter: profile_only
+    pricing_url: https://pixia.cloud/
+    platform_type: inference_provider
+    source_type: competitor_public
+    default_currency: BRL
+    market_scope: Brazil
+    brazil_relevance: direct_brl
+    openai_compatible: true
+
+  - id: apitopus
+    platform: Apitopus
+    enabled: true
+    adapter: profile_only
+    pricing_url: https://apitopus.com/
+    platform_type: gateway
+    source_type: competitor_public
+    default_currency: BRL
+    market_scope: Brazil
+    brazil_relevance: direct_brl
+    openai_compatible: true
+
+  - id: nexforce
+    platform: Nexforce
+    enabled: true
+    adapter: profile_only
+    pricing_url: https://nexforce.ai/router
+    platform_type: gateway
+    source_type: marketplace_reference
+    default_currency: BRL
+    market_scope: Brazil
+    brazil_relevance: local_market
+    openai_compatible: true
+
+  - id: swen-ai
+    platform: SWEN.AI
+    enabled: true
+    adapter: profile_only
+    pricing_url: https://swen.ia.br/benchmark/custo-api
+    platform_type: benchmark
+    source_type: benchmark
+    default_currency: BRL
+    market_scope: Brazil
+    brazil_relevance: benchmark
+    openai_compatible: false

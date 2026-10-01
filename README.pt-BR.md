@@ -10,7 +10,7 @@ Um gateway multimodelo para aplicações, agentes e automações, com modelos de
 
 [Site](https://mandapi.com/) · [Documentação](https://mandapi.com/docs) · [Modelos](https://mandapi.com/#/models) · [Preços](https://mandapi.com/pricing)
 
-**Ferramentas para desenvolvedores:** [Gerador de código](packages/codegen/) · [Catálogo de modelos](packages/catalog/) · SDK (planejado) · Agent Skills (planejado).
+**Ferramentas para desenvolvedores:** [Gerador de código](packages/codegen/) · [Catálogo de modelos](packages/catalog/) · [Inteligência de preços de LLMs](skills/llm-price-intelligence/) · SDK (planejado).
 
 ## APIs de IA sem complicação
 
@@ -51,7 +51,8 @@ O Developer Kit está sendo entregue em etapas:
 | [`@mandapi/catalog`](packages/catalog/README.md) | Implementado e disponível pelo código deste repositório; ainda não publicado no npm |
 | `@mandapi/model-schema` | Planejado para P3 |
 | `@mandapi/ai-sdk-provider` | Planejado para P3 |
-| Agent Skills | Planejado para P4 |
+| [Inteligência de preços de LLMs](skills/llm-price-intelligence/) | Disponível pelo código: coleta preços públicos, normaliza modelos, preserva fontes e gera snapshots e relatórios de mudanças |
+| Outros Agent Skills | Planejados |
 
 ### Gerador de código
 
@@ -119,15 +120,20 @@ Gerar código não envia requisições. Executar o Python chama a API e consome 
 
 ## Status do projeto
 
-P2 concluído. O gateway está em operação; os pacotes atuais são:
+P2 concluído e a primeira Agent Skill em Python disponível pelo código. A estrutura atual é:
 
 ```text
 packages/
 ├── codegen/
 └── catalog/
+
+skills/
+└── llm-price-intelligence/
 ```
 
 A [validação P2](docs/p2-validation.md) registra testes locais, builds e execução real de Python em **2026-10-01** para `gpt-6-sol` via Chat: HTTP 200 com conteúdo do assistente. Somente esse par modelo/protocolo foi marcado como testado ao vivo; os demais permanecem sem essa marcação. 86 testes, typechecks e builds passaram. A rota Gemini Native é configurável e ainda não foi testada ao vivo.
+
+Consulte o [guia de inteligência de preços de LLMs](skills/llm-price-intelligence/README.md) para usar a primeira Skill em Python.
 
 ## Links rápidos
 

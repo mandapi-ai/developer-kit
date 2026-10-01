@@ -10,7 +10,7 @@ GPT · Claude · Gemini · DeepSeek · Kimi · GLM · MiMo
 
 [Website](https://mandapi.com/) · [Documentation](https://mandapi.com/docs) · [Models](https://mandapi.com/#/models) · [Pricing in BRL](https://mandapi.com/pricing)
 
-**Developer tools:** [Code Generator](packages/codegen/) · [Model Catalog](packages/catalog/) · SDK (planned) · Agent Skills (planned).
+**Developer tools:** [Code Generator](packages/codegen/) · [Model Catalog](packages/catalog/) · [LLM Price Intelligence Skill](skills/llm-price-intelligence/) · SDK (planned).
 
 ## AI APIs without the usual complexity
 
@@ -45,14 +45,15 @@ The website publishes current prices. This repository's Catalog contains a dated
 
 ## Developer tools
 
-The Developer Kit is MandAPI's open developer-tooling layer. Two packages are available from this repository; **npm packages have not been published yet**.
+The Developer Kit is MandAPI's open developer-tooling layer. Two JavaScript packages and a Python Skill are available from this repository; **npm packages have not been published yet**.
 
 | Component | Status | What it provides |
 | --- | --- | --- |
 | [Code Generator](packages/codegen/) — `@mandapi/codegen` | Available from source | Request examples for four protocols and seven languages |
 | [Model Catalog](packages/catalog/) — `@mandapi/catalog` | Available from source | Structured model metadata, filters and preferred-protocol lookup |
 | Model Schema + AI SDK Provider | Planned — P3 | Shared model contracts and `@mandapi/ai-sdk-provider` integration |
-| Agent Skills | Planned — P4 | Model discovery and integration support for coding assistants |
+| [LLM Price Intelligence](skills/llm-price-intelligence/) | Available from source | Public LLM/API price crawling, normalization, provenance, snapshots and price-change reports |
+| Other Agent Skills | Planned | Model discovery and integration support for coding assistants |
 
 ### Code Generator
 
@@ -125,20 +126,24 @@ Code generation itself makes no API request. Running the generated Python uses y
 
 ## Project status
 
-P2 is complete. The current package structure is:
+P2 is complete and the first Python Agent Skill is available from source. The current structure is:
 
 ```text
 packages/
 ├── codegen/
 └── catalog/
+
+skills/
+└── llm-price-intelligence/
 ```
 
 Generated Python for `gpt-6-sol` using Chat was live-tested on **2026-10-01** against `https://api.mandapi.com/v1/chat/completions`: HTTP 200 with assistant content. Only this Catalog model/protocol is marked `tested: true`; other combinations are not recorded as live-tested. Gemini's native route remains configurable.
 
-See [P2 validation](docs/p2-validation.md) for the request configuration and verification record. The 86 tests, typechecks and builds passed. Model Schema, AI SDK Provider and Agent Skills remain on the roadmap.
+See [P2 validation](docs/p2-validation.md) for the request configuration and verification record. The 86 tests, typechecks and builds passed. Model Schema, AI SDK Provider and other Agent Skills remain on the roadmap.
 
 ## Quick links
 
+- [LLM Price Intelligence Skill](skills/llm-price-intelligence/README.md)
 - [Make your first API request](https://mandapi.com/docs/quickstart)
 - [Create and protect an API key](https://mandapi.com/docs/api-keys)
 - [Browse models](https://mandapi.com/#/models)
