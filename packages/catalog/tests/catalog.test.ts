@@ -29,7 +29,7 @@ describe('catalog lookup and fixtures', () => {
   it('returns an exact model ID and provides the get alias', () => {
     const model = getModel('gpt-6-sol');
     expect(model?.id).toBe('gpt-6-sol');
-    expect(model?.protocols).toEqual([{ id: 'chat', preferred: true }]);
+    expect(model?.protocols).toEqual([{ id: 'chat', preferred: true, tested: true }]);
     expect(model?.preferredProtocol).toBe('chat');
     expect(catalog.get('gpt-6-sol')).toBe(model);
     expect(model?.capabilities).toEqual({});
@@ -41,9 +41,13 @@ describe('catalog lookup and fixtures', () => {
     expect(resolvePreferredProtocol('not-present')).toBeUndefined();
   });
 
-  it('includes nine representative official IDs without claiming live tests', () => {
+  it('includes nine representative official IDs and only the recorded live-test flag', () => {
     expect(listModels()).toHaveLength(9);
-    expect(listModels().flatMap((model) => model.protocols).some((protocol) => protocol.tested === true)).toBe(false);
+    const testedProtocols = listModels().flatMap((model) =>
+      model.protocols.filter((protocol) => protocol.tested === true)
+        .map((protocol) => ({ model: model.id, protocol: protocol.id })),
+    );
+    expect(testedProtocols).toEqual([{ model: 'gpt-6-sol', protocol: 'chat' }]);
     expect(getModel('claude-opus-5')?.pricing).toEqual({ currency: 'BRL', input: 2, output: 10, unit: 'per_million_tokens' });
     expect(getModel('gemini-3.1-pro-preview')?.limits?.context).toBe(1_000_000);
     expect(getModel('gpt-6-sol')?.limits).toBeUndefined();
