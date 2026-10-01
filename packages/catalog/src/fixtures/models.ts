@@ -20,7 +20,8 @@ export const fixtureModels: readonly MandapiModelInput[] = [
     "protocols": [
       {
         "id": "chat",
-        "preferred": true
+        "preferred": true,
+        "tested": true
       }
     ],
     "capabilities": {},
