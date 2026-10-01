@@ -27,20 +27,33 @@ The tests execute generated Python and TypeScript against a temporary local test
 - B: `claude-opus-5` resolves to Messages from Catalog declarations.
 - C: `gemini-3.1-pro-preview` resolves to Gemini Native and generates the specified route; the direct production-advertised `/v1beta/...` can be explicitly injected.
 - D: `pnpm test`, TypeScript checks, and both package builds pass.
-- A: authenticated Python-to-MandAPI Chat execution is pending a locally configured test credential. Local test-receiver execution proves the generated Python request is executable but is not recorded as a live MandAPI response.
+- A: passed. Generated Python executed an authenticated Chat request against MandAPI and returned HTTP 200 with assistant/content. Content did not need to equal `OK`.
 
-No fixture has `tested: true`. Do not change that until a successful authenticated test against the intended deployment is recorded with its date and route. The public source only declares Chat for `gpt-6-sol`; Responses is not invented for this fixture.
+Only the `gpt-6-sol` Chat protocol has `tested: true`, corresponding to the live result below. No other model/protocol is marked live-tested. The public source only declares Chat for `gpt-6-sol`; Responses is not invented for this fixture.
+
+## Live Acceptance A evidence
+
+| Field | Observed result |
+| --- | --- |
+| Date | 2026-10-01 (Asia/Shanghai) |
+| Model | `gpt-6-sol` |
+| Protocol | `chat` |
+| Endpoint | `https://api.mandapi.com/v1/chat/completions` |
+| HTTP success | `200` |
+| Response check | Assistant message with non-empty content |
+
+The generated Python was executed without changing its request code. The invocation used the existing `headers` option to send `User-Agent: MandAPI-Developer-Kit/0.1.0`; Python's default User-Agent was rejected with HTTP 403 by this deployment. A local wrapper observed the HTTP status and checked the response in memory. No credential or complete response is retained in this record. Gemini remains route-configurable and not live-tested.
 
 ## Run acceptance A
 
 Set `MANDAPI_BASE_URL` and `MANDAPI_API_KEY` locally; do not add credentials to the repository. The public quickstart advertises gateway root `https://api.mandapi.com`. Generate a minimal Python example using the built library:
 
 ```sh
-node --input-type=module -e 'import { generateCode } from "./packages/codegen/dist/index.js"; console.log(generateCode({model:"gpt-6-sol",protocol:"chat",language:"python",baseUrl:process.env.MANDAPI_BASE_URL,prompt:"Reply with OK only."}));' > /tmp/mandapi-chat.py
+node --input-type=module -e 'import { generateCode } from "./packages/codegen/dist/index.js"; console.log(generateCode({model:"gpt-6-sol",protocol:"chat",language:"python",baseUrl:process.env.MANDAPI_BASE_URL,prompt:"Reply with OK only.",headers:{"User-Agent":"MandAPI-Developer-Kit/0.1.0"}}));' > /tmp/mandapi-chat.py
 python /tmp/mandapi-chat.py
 ```
 
-On Windows, save the generated UTF-8 script in the system temporary directory instead of `/tmp`. The generated file contains only request configuration and an environment-variable name, not the credential. A live request incurs the gateway usage charge. Verify a successful content-bearing response before marking A complete.
+On Windows, save the generated UTF-8 script in the system temporary directory instead of `/tmp`. The generated file contains only request configuration and an environment-variable name, not the credential. A live request incurs the gateway usage charge. Success requires HTTP 2xx and an assistant message with non-empty content, not an exact `OK` response.
 
 ## Public evidence
 
