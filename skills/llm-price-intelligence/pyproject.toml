@@ -22,7 +22,7 @@ dev = ["pytest>=8.0,<9"]
 mandapi-price-intel = "mandapi_price_intelligence.cli:main"
 
 [tool.setuptools.package-data]
-mandapi_price_intelligence = ["sources.yaml"]
+mandapi_price_intelligence = ["sources.yaml", "model-aliases.yaml"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

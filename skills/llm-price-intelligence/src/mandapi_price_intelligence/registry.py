@@ -38,7 +38,7 @@ def load_registry(path: str | Path) -> tuple[dict, list[SourceSpec]]:
         if item["id"] in seen:
             raise ValueError(f"Duplicate source ID: {item['id']}")
         seen.add(item["id"])
-        if item["adapter"] not in {"openrouter", "generic_html", "profile_only", "roteia", "runapi", "kunavo", "tokenrecarga", "apimart", "ominigate"}:
+        if item["adapter"] not in {"openrouter", "generic_html", "profile_only", "roteia", "runapi", "kunavo", "tokenrecarga", "apimart", "ominigate", "openai", "anthropic", "google_ai_studio", "deepseek"}:
             raise ValueError(f"Source {item['id']}: unknown adapter {item['adapter']}")
         if not str(item["pricing_url"]).startswith(("https://", "http://")):
             raise ValueError(f"Source {item['id']}: pricing_url must be a public HTTP URL")

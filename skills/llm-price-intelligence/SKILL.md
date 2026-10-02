@@ -32,6 +32,7 @@ From this Skill directory, install with Python 3.11+ using `pip install -e ".[de
 6. Treat generic HTML extraction as `needs_review`.
 7. Preserve original published currency.
 8. Keep seller model ID and conservative canonical model ID separately.
+   Use `data/model-aliases.yaml` for research matches; a normalized display ID alone is not match evidence.
 9. Validate records before comparing or publishing them.
 10. Append or create a dated snapshot; never destroy prior history.
 11. Generate a Markdown change report when an older snapshot exists.
@@ -46,6 +47,9 @@ From this Skill directory, install with Python 3.11+ using `pip install -e ".[de
 - BRL conversion is derived data unless the seller itself publishes BRL.
 - The public source URL belongs on every price observation.
 - Unknown model aliases stay unknown rather than being guessed.
+- A model match requires explicit or conservatively documented identity evidence.
+- A retail API price is a time-indexed observation, not a permanent model attribute.
+- Cross-currency comparisons require an explicit dated FX source.
 
 ## Output
 
@@ -54,9 +58,12 @@ Primary export: `prices.csv`, compatible with the MandAPI LLM Pricing Observator
 Supporting exports:
 
 - `providers.csv`
+- `offer-details.csv` (structured service, context, cache and time dimensions)
 - `evidence.jsonl`
 - `crawl-summary.md`
 - optional `price-changes.md`
+- `matched-observations.csv` and `matched-summary.csv` from `match`
+- a local Hugging Face V3 package from `hf-export`; never upload automatically
 
 ## Brand / research context
 

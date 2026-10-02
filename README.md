@@ -52,7 +52,7 @@ The Developer Kit is MandAPI's open developer-tooling layer. Two JavaScript pack
 | [Code Generator](packages/codegen/) — `@mandapi/codegen` | Available from source | Request examples for four protocols and seven languages |
 | [Model Catalog](packages/catalog/) — `@mandapi/catalog` | Available from source | Structured model metadata, filters and preferred-protocol lookup |
 | Model Schema + AI SDK Provider | Planned — P3 | Shared model contracts and `@mandapi/ai-sdk-provider` integration |
-| [LLM Price Intelligence](skills/llm-price-intelligence/) | Available from source | Public LLM/API price crawling, normalization, provenance, snapshots and price-change reports |
+| [LLM Price Intelligence](skills/llm-price-intelligence/) | Available from source | Collects and audits public LLM/API pricing, maps Brazil-focused gateways, preserves source provenance, and compares dated price snapshots |
 | Other Agent Skills | Planned | Model discovery and integration support for coding assistants |
 
 ### Code Generator

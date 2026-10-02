@@ -6,8 +6,10 @@ import sys
 
 from .crawler import crawl_sources, _market_matches
 from .diff import build_diff_markdown
-from .export import write_evidence, write_prices, write_providers, write_summary
+from .export import write_evidence, write_offer_details, write_prices, write_providers, write_summary
 from .registry import load_registry
+from .matching import default_alias_path
+from .research_export import export_hf_v3, export_matched
 from .validate import validate_csv
 
 
@@ -18,7 +20,7 @@ def _default_registry() -> Path:
 
 def cmd_crawl(args: argparse.Namespace) -> int:
     out = Path(args.out)
-    names = ["prices.csv", "providers.csv", "evidence.jsonl", "crawl-summary.md"]
+    names = ["prices.csv", "offer-details.csv", "providers.csv", "evidence.jsonl", "crawl-summary.md"]
     if any((out / name).exists() for name in names):
         raise ValueError("Snapshot already exists; choose a new dated output directory")
     raw, sources = load_registry(args.sources)
@@ -32,6 +34,7 @@ def cmd_crawl(args: argparse.Namespace) -> int:
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     write_prices(out / "prices.csv", records)
+    write_offer_details(out / "offer-details.csv", records)
     write_providers(out / "providers.csv", sources)
     write_evidence(out / "evidence.jsonl", evidence)
     write_summary(out / "crawl-summary.md", records, evidence)
@@ -56,6 +59,20 @@ def cmd_diff(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_match(args: argparse.Namespace) -> int:
+    sample = export_matched(args.snapshot, args.out, args.aliases)
+    print(f"wrote {len(sample.observations)} matched observations for "
+          f"{len(sample.summary)} models; {len(sample.unresolved)} seller IDs unresolved")
+    return 0
+
+
+def cmd_hf_export(args: argparse.Namespace) -> int:
+    sample = export_hf_v3(args.snapshot, args.out, args.aliases)
+    print(f"wrote local Hugging Face V3 package to {args.out}: "
+          f"{len(sample.summary)} matched models")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="mandapi-price-intel")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -75,6 +92,18 @@ def build_parser() -> argparse.ArgumentParser:
     diff.add_argument("--new", required=True)
     diff.add_argument("--out", required=True)
     diff.set_defaults(func=cmd_diff)
+
+    match = sub.add_parser("match", help="export conservatively matched seller observations")
+    match.add_argument("--snapshot", required=True, help="directory containing prices.csv")
+    match.add_argument("--out", required=True)
+    match.add_argument("--aliases", default=str(default_alias_path()))
+    match.set_defaults(func=cmd_match)
+
+    hf = sub.add_parser("hf-export", help="build a local Hugging Face V3 research package")
+    hf.add_argument("--snapshot", required=True)
+    hf.add_argument("--out", required=True)
+    hf.add_argument("--aliases", default=str(default_alias_path()))
+    hf.set_defaults(func=cmd_hf_export)
 
     return parser
 

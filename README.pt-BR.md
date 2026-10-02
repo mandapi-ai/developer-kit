@@ -51,7 +51,7 @@ O Developer Kit está sendo entregue em etapas:
 | [`@mandapi/catalog`](packages/catalog/README.md) | Implementado e disponível pelo código deste repositório; ainda não publicado no npm |
 | `@mandapi/model-schema` | Planejado para P3 |
 | `@mandapi/ai-sdk-provider` | Planejado para P3 |
-| [Inteligência de preços de LLMs](skills/llm-price-intelligence/) | Disponível pelo código: coleta preços públicos, normaliza modelos, preserva fontes e gera snapshots e relatórios de mudanças |
+| [Inteligência de preços de LLMs](skills/llm-price-intelligence/) | Disponível pelo código: coleta e audita preços públicos de APIs de IA, mapeia gateways relevantes no Brasil, preserva a origem dos dados e compara snapshots históricos |
 | Outros Agent Skills | Planejados |
 
 ### Gerador de código

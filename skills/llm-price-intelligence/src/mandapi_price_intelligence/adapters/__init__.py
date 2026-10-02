@@ -3,10 +3,20 @@ from .provider_html import RoteiaAdapter, RunAPIAdapter, KunavoAdapter, TokenRec
 from .base import Adapter
 from .generic_html import GenericHtmlTableAdapter
 from .openrouter import OpenRouterAdapter
+from .official_google_deepseek import GoogleAiStudioAdapter, DeepSeekAdapter
+from .official_openai_anthropic import OpenAIOfficialAdapter, AnthropicOfficialAdapter
 from .profile_only import ProfileOnlyAdapter
 
 
 def adapter_for(name: str) -> Adapter:
+    if name == "openai":
+        return OpenAIOfficialAdapter()
+    if name == "anthropic":
+        return AnthropicOfficialAdapter()
+    if name == "google_ai_studio":
+        return GoogleAiStudioAdapter()
+    if name == "deepseek":
+        return DeepSeekAdapter()
     if name == "apimart":
         return APIMartAdapter()
     if name == "ominigate":

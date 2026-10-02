@@ -11,6 +11,7 @@ It is designed to support the **MandAPI LLM Pricing Observatory / AI API Prices 
 - loads public pricing sources from `sources.yaml`;
 - fetches public pages and APIs with evidence hashes;
 - parses structured OpenRouter, APIMart and OminiGate public catalog pricing;
+- parses OpenAI, Anthropic, Google Gemini and DeepSeek official reference prices with dedicated adapters;
 - extracts candidate prices from simple public HTML tables;
 - keeps profile-only competitors in the provider registry without fabricating prices;
 - preserves the original published currency;
@@ -18,6 +19,8 @@ It is designed to support the **MandAPI LLM Pricing Observatory / AI API Prices 
 - exports the current V2 flat price schema;
 - validates suspicious or incomplete records;
 - compares two snapshots and writes a Markdown change report.
+- matches seller model IDs only where `data/model-aliases.yaml` records identity evidence;
+- exports long-format matched observations and a local Hugging Face V3 research package.
 
 ## Research integrity
 
@@ -59,6 +62,7 @@ Outputs:
 ```text
 dist/2026-10-01-2200-brazil/
 ├── prices.csv
+├── offer-details.csv
 ├── providers.csv
 ├── evidence.jsonl
 └── crawl-summary.md
@@ -78,6 +82,34 @@ mandapi-price-intel crawl --market global --out ./dist/2026-10-01-2200-global
 mandapi-price-intel validate --input ./dist/2026-10-01-2200-brazil/prices.csv
 ```
 
+`prices.csv` retains the 25-column V2 schema. `offer-details.csv` uses `record_id` to
+preserve service tier, time band, promotion, cache-write duration, caching storage
+and context threshold without forcing these values into the old columns. Its
+`observed_at` value is the exact source fetch time recorded in `evidence.jsonl`.
+
+## Export a conservative matched sample and local V3 package
+
+Use a validated **global** snapshot so official references and retail sellers are
+observed in the same crawl window. The alias registry is seller-scoped: a similar
+name, a preview/stable pair or a dated/rolling pair does not create a match.
+
+```bash
+mandapi-price-intel match --snapshot ./dist/YYYY-MM-DD-global --out ./dist/YYYY-MM-DD-matched
+mandapi-price-intel hf-export --snapshot ./dist/YYYY-MM-DD-global --out ./dist/huggingface-v3
+```
+
+The matched export contains `matched-observations.csv`,
+`matched-summary.csv` and `unresolved-aliases.csv`; each canonical model in the
+first two files has at least two distinct sellers. Unmapped seller IDs have an
+explicit `unresolved` status in the third file.
+Matching requires a complete `offer-details.csv` whose record IDs, seller model IDs
+and fetch timestamps agree with the same snapshot's prices and evidence. The
+`has_brazil_seller` flag requires a mapped source with `market_scope=Brazil`;
+a Portuguese-language global listing alone does not count.
+The local V3 package also includes V2 prices, providers, offer details, the alias
+registry, methodology and source coverage. Original currencies remain separate;
+no cross-currency spread or automatic Hugging Face upload is performed.
+
 ## Diff snapshots
 
 ```bash
@@ -93,7 +125,7 @@ The diff uses an adjacent new-snapshot `evidence.jsonl` when present: unavailabl
 
 The registry includes public sources for MandAPI, Roteia, TokenRecarga, OpenRouter, OpenAI, Anthropic, Google AI Studio, DeepSeek, Kunavo, APIMart, RunAPI, UnoRouter and OminiGate, plus profile/market sources such as Tokia, NAVI Router, CertiSecure, PixIA Cloud, Apitopus, Nexforce and SWEN.AI.
 
-Provider-specific adapters cover Roteia's embedded public catalog and context tiers, RunAPI's protocol-specific token table, Kunavo's text/cache tables, and TokenRecarga's numeric pricing cards. HTML and embedded-page data remain `needs_review`; the structured OpenRouter, APIMart and OminiGate public APIs are `public_source`. APIMart exports explicit base rates as `listed_base`, excluding effective/group/member discounts. OminiGate exports `catalog_list` rates, excluding route discounts. TokenRecarga rows retain its tax-excluded caveat. Non-token charges are not mapped into token fields.
+Provider-specific adapters cover Roteia's embedded public catalog and context tiers, RunAPI's protocol-specific token table, Kunavo's text/cache tables, and TokenRecarga's numeric pricing cards. HTML and embedded-page candidates remain `needs_review`; dedicated official parsers and the structured OpenRouter, APIMart and OminiGate public APIs emit `public_source`. APIMart exports explicit base rates as `listed_base`, excluding effective/group/member discounts. OminiGate exports `catalog_list` rates, excluding route discounts. TokenRecarga rows retain its tax-excluded caveat. Non-token charges are not mapped into token fields.
 
 A source returning HTTP 200 with zero supported rows is **not evidence that it has no public prices**. Check `parser_status` in `evidence.jsonl`; `no_supported_prices` means the adapter found none. The summary counts unique seller model IDs separately from price records (context/protocol variants). Profile sources emit no price records. Brazil mode includes Brazil/localized-market sources; use global mode for OpenRouter and official global references.
 
@@ -132,6 +164,10 @@ notes
 ```
 
 The crawler preserves original currencies. Cross-currency normalization should be produced as a derived research layer, not written back over source prices.
+
+The V2 `canonical_model_id` field is a legacy normalized candidate and is not,
+on its own, proof of model identity. Research matching uses explicit seller ID
+entries from `data/model-aliases.yaml`; IDs without such evidence remain unresolved.
 
 ## Adding a source
 

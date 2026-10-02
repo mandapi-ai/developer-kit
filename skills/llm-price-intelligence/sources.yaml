@@ -57,8 +57,8 @@ sources:
   - id: openai
     platform: OpenAI
     enabled: true
-    adapter: generic_html
-    pricing_url: https://developers.openai.com/api/docs/pricing
+    adapter: openai
+    pricing_url: https://developers.openai.com/api/docs/pricing.md
     platform_type: official
     source_type: official
     default_currency: USD
@@ -70,7 +70,7 @@ sources:
   - id: anthropic
     platform: Anthropic
     enabled: true
-    adapter: generic_html
+    adapter: anthropic
     pricing_url: https://platform.claude.com/docs/en/about-claude/pricing
     platform_type: official
     source_type: official
@@ -83,7 +83,7 @@ sources:
   - id: google-ai-studio
     platform: Google AI Studio
     enabled: true
-    adapter: generic_html
+    adapter: google_ai_studio
     pricing_url: https://ai.google.dev/gemini-api/docs/pricing
     platform_type: official
     source_type: official
@@ -96,7 +96,7 @@ sources:
   - id: deepseek
     platform: DeepSeek
     enabled: true
-    adapter: generic_html
+    adapter: deepseek
     pricing_url: https://api-docs.deepseek.com/quick_start/pricing/
     platform_type: official
     source_type: official

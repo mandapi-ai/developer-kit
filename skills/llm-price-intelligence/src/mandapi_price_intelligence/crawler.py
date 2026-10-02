@@ -36,6 +36,8 @@ def crawl_sources(
             adapter = adapter_for(source.adapter)
             try:
                 parsed = adapter.parse(source, fetched)
+                for record in parsed:
+                    record.observed_at = fetched.evidence.fetched_at
                 records.extend(parsed)
                 fetched.evidence.record_count = len(parsed)
                 fetched.evidence.parser_status = "profile_only" if source.adapter == "profile_only" else ("parsed" if parsed else "no_supported_prices")

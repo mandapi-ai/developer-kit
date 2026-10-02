@@ -95,6 +95,21 @@ class PriceRecord:
     last_checked: str = field(default_factory=lambda: datetime.now(timezone.utc).date().isoformat())
     source_url: str = ""
     notes: str = ""
+    # Research fields are exported separately, leaving the V2 prices.csv unchanged.
+    seller_model_id: str = ""
+    model_creator: str = ""
+    observed_at: str = ""
+    service_tier: str = ""
+    time_band: str = ""
+    promotion_status: str = ""
+    effective_start: str = ""
+    effective_end: str = ""
+    charge_type: str = "token"
+    modality: str = "text"
+    cache_write_5m_per_1m: Decimal | None = None
+    cache_write_1h_per_1m: Decimal | None = None
+    cache_storage_per_1m_hour: Decimal | None = None
+    context_threshold_tokens: int | None = None
 
     def to_row(self) -> dict[str, str]:
         raw = asdict(self)

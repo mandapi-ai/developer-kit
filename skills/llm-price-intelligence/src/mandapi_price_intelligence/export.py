@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 from dataclasses import asdict
+from decimal import Decimal
 from pathlib import Path
 
 from .models import PRICE_COLUMNS, Evidence, PriceRecord, SourceSpec
@@ -14,6 +15,14 @@ PROVIDER_COLUMNS = [
     "public_numeric_pricing", "source_url", "notes",
 ]
 
+OFFER_DETAIL_COLUMNS = [
+    "record_id", "seller_model_id", "model_creator", "observed_at", "service_tier",
+    "time_band", "promotion_status", "effective_start", "effective_end",
+    "charge_type", "modality", "cache_write_5m_per_1m",
+    "cache_write_1h_per_1m", "cache_storage_per_1m_hour",
+    "context_threshold_tokens",
+]
+
 
 def write_prices(path: str | Path, records: list[PriceRecord]) -> None:
     path = Path(path)
@@ -23,6 +32,37 @@ def write_prices(path: str | Path, records: list[PriceRecord]) -> None:
         writer.writeheader()
         for record in sorted(records, key=lambda r: (r.platform.lower(), r.canonical_model_id, r.pricing_variant)):
             writer.writerow(record.to_row())
+
+
+def write_offer_details(path: str | Path, records: list[PriceRecord]) -> None:
+    """Keep official offer dimensions without changing the V2 price columns."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8-sig", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=OFFER_DETAIL_COLUMNS)
+        writer.writeheader()
+        for record in sorted(records, key=lambda r: r.record_id):
+            writer.writerow({
+                key: format(value, "f") if isinstance(value, Decimal) else
+                ("" if value is None else value)
+                for key, value in {
+                    "record_id": record.record_id,
+                    "seller_model_id": record.seller_model_id or record.model_id,
+                    "model_creator": record.model_creator or record.model_provider,
+                    "observed_at": record.observed_at or record.last_checked,
+                    "service_tier": record.service_tier,
+                    "time_band": record.time_band,
+                    "promotion_status": record.promotion_status,
+                    "effective_start": record.effective_start,
+                    "effective_end": record.effective_end,
+                    "charge_type": record.charge_type,
+                    "modality": record.modality,
+                    "cache_write_5m_per_1m": record.cache_write_5m_per_1m,
+                    "cache_write_1h_per_1m": record.cache_write_1h_per_1m,
+                    "cache_storage_per_1m_hour": record.cache_storage_per_1m_hour,
+                    "context_threshold_tokens": record.context_threshold_tokens,
+                }.items()
+            })
 
 
 def write_providers(path: str | Path, sources: list[SourceSpec]) -> None:

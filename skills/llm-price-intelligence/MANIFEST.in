@@ -1,1 +1,2 @@
 include sources.yaml
+include data/model-aliases.yaml
