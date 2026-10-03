@@ -144,6 +144,7 @@ See [P2 validation](docs/p2-validation.md) for the request configuration and ver
 ## Quick links
 
 - [LLM Price Intelligence Skill](skills/llm-price-intelligence/README.md)
+- [Kaggle Dataset](https://www.kaggle.com/datasets/mandapi/llm-api-pricing-dataset-2026)
 - [Make your first API request](https://mandapi.com/docs/quickstart)
 - [Create and protect an API key](https://mandapi.com/docs/api-keys)
 - [Browse models](https://mandapi.com/#/models)
